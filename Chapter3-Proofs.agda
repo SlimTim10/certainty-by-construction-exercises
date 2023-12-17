@@ -1,5 +1,7 @@
 module Chapter3-Proofs where
 
+open import Agda.Primitive renaming (Set to Type)
+
 open import Chapter1-Agda
   using (Bool; true; false; _∨_; _∧_; not)
 
@@ -19,7 +21,7 @@ module Example-ProofsAsPrograms where
   -- one-is-even = {!!}
 
 module Definition where
-  data _≡_ {A : Set} : A → A → Set where
+  data _≡_ {A : Type} : A → A → Type where
     refl : {x : A}
       → x ≡ x
 
@@ -57,7 +59,7 @@ module Playground where
       → suc x ≡ suc y
 
   cong
-    : {A B : Set}
+    : {A B : Type}
     → {x y : A}
     → (f : A → B)
     → x ≡ y
@@ -135,7 +137,7 @@ module Playground where
   -- *-identityˡ′ zero = refl
   -- *-identityˡ′ (suc x) = cong suc (*-identityˡ′ x)
 
-  sym : {A : Set} {x y : A} → x ≡ y → y ≡ x
+  sym : {A : Type} {x y : A} → x ≡ y → y ≡ x
   sym refl = refl
 
   *-identityˡ′ : (x : ℕ) → x ≡ 1 * x
@@ -143,7 +145,7 @@ module Playground where
   *-identityˡ′ x = sym (*-identityˡ x)
 
   sym-involutive
-    : {A : Set} {x y : A}
+    : {A : Type} {x y : A}
     → (p : x ≡ y) → sym (sym p) ≡ p
   sym-involutive refl = refl
 
@@ -154,7 +156,7 @@ module Playground where
   -- Transitivity
   
   trans
-    : {A : Set} {x y z : A}
+    : {A : Type} {x y z : A}
     → x ≡ y
     → y ≡ z
     → x ≡ z
@@ -171,13 +173,13 @@ module Playground where
 
   module ≡-Reasoning where
 
-    _∎ : {A : Set} → (x : A) → x ≡ x
+    _∎ : {A : Type} → (x : A) → x ≡ x
     x ∎ = refl
 
     infix 3 _∎
 
     _≡⟨⟩_
-      : {A : Set} {y : A}
+      : {A : Type} {y : A}
       → (x : A)
       → x ≡ y
       → x ≡ y
@@ -186,7 +188,7 @@ module Playground where
     infixr 2 _≡⟨⟩_
 
     _≡⟨_⟩_
-      : {A : Set}
+      : {A : Type}
       → (x : A)
       → {y z : A}
       → x ≡ y
@@ -196,7 +198,7 @@ module Playground where
 
     infixr 2 _≡⟨_⟩_
 
-    begin_ : {A : Set} {x y : A} → x ≡ y → x ≡ y
+    begin_ : {A : Type} {x y : A} → x ≡ y → x ≡ y
     begin_ x≡y = x≡y
 
     infix 1 begin_

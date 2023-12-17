@@ -2,11 +2,13 @@
 
 module Chapter1-Agda where
 
+open import Agda.Primitive renaming (Set to Type)
+
 open import Data.Product using () renaming (_×_ to _,_)
 open import Relation.Binary.PropositionalEquality
 
 module Booleans where
-  data Bool : Set where
+  data Bool : Type where
     false : Bool
     true : Bool
 

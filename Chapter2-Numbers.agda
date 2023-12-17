@@ -1,9 +1,11 @@
 module Chapter2-Numbers where
 
+open import Agda.Primitive renaming (Set to Type)
+
 import Chapter1-Agda
 
 module Definition-Naturals where
-  data ℕ : Set where
+  data ℕ : Type where
     zero : ℕ
     suc : ℕ → ℕ
 
@@ -45,16 +47,16 @@ module Sandbox-Naturals where
 
   module Sandbox-Usable where
     postulate
-      Usable : Set
-      Unusable : Set
+      Usable : Type
+      Unusable : Type
 
-    IsEven : ℕ → Set
+    IsEven : ℕ → Type
     IsEven zero = Usable
     IsEven (suc zero) = Unusable
     IsEven (suc (suc x)) = IsEven x
 
   -- Indexed type
-  data IsEven : ℕ → Set where
+  data IsEven : ℕ → Type where
     zero-even : IsEven zero
     suc-suc-even : {n : ℕ} → IsEven n → IsEven (suc (suc n))
 
@@ -65,7 +67,7 @@ module Sandbox-Naturals where
   -- three-is-even = suc-suc-even {!!}
 
   -- Exercise: Build an indexed type for IsOdd
-  data IsOdd : ℕ → Set where
+  data IsOdd : ℕ → Type where
     one-odd : IsOdd one
     suc-suc-odd : {n : ℕ} → IsOdd n → IsOdd (suc (suc n))
 
@@ -80,7 +82,7 @@ module Sandbox-Naturals where
   evenOdd zero-even = one-odd
   evenOdd (suc-suc-even x) = suc-suc-odd (evenOdd x)
 
-  data Maybe (A : Set) : Set where
+  data Maybe (A : Type) : Type where
     just : A → Maybe A
     nothing : Maybe A
 
@@ -122,7 +124,7 @@ module Sandbox-Integers where
   import Data.Nat as ℕ
   open ℕ using (ℕ)
 
-  data ℤ : Set where
+  data ℤ : Type where
     +_ : ℕ → ℤ
     -[1+_] : ℕ → ℤ
 
