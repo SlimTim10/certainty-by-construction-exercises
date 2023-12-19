@@ -1,1 +1,3 @@
 Working through the exercises of the book [[https://leanpub.com/certainty-by-construction][Certainty by Construction]].
+
+Built with Agda version 2.6.2.2.
