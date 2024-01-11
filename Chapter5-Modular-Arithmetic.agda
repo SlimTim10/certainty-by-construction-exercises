@@ -186,3 +186,30 @@ module ℕ/nℕ (n : ℕ) where
   +-cong₂-mod {suc a} {suc b} {c} {d} pab pcd = suc-cong-mod (+-cong₂-mod (suc-injective-mod pab) pcd)
 
   -- 5.5
+
+  *-zero-mod : (a b : ℕ) → b ≈ 0 → a * b ≈ 0
+  *-zero-mod zero b b=0 = ≈-mod b b refl
+  *-zero-mod (suc a) b b=0 = begin
+    suc a * b ≡⟨⟩
+    b + a * b ≈⟨ +-cong₂-mod b=0 (*-zero-mod a b b=0) ⟩
+    0 ∎
+    where open Mod-Reasoning
+
+  *-cong₂-mod : {a b c d : ℕ}
+    → a ≈ b
+    → c ≈ d
+    → a * c ≈ b * d
+  *-cong₂-mod {zero} {b} {c} {d} a=b c=d = begin
+    zero ≈⟨ sym (*-zero-mod d b (sym a=b)) ⟩
+    d * b ≡⟨ *-comm d b ⟩
+    b * d ∎
+    where open Mod-Reasoning
+  *-cong₂-mod {suc a} {zero} {c} {d} a=b c=d = begin
+    c + a * c ≡⟨ *-comm (suc a) c ⟩
+    c * suc a ≈⟨ *-zero-mod c (suc a) a=b ⟩
+    zero ∎
+    where open Mod-Reasoning
+  *-cong₂-mod {suc a} {suc b} {c} {d} a=b c=d = begin
+    c + a * c ≈⟨ +-cong₂-mod c=d (*-cong₂-mod (suc-injective-mod a=b) c=d) ⟩
+    d + b * d ∎
+    where open Mod-Reasoning
