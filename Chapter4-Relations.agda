@@ -205,9 +205,9 @@ module Sandbox-Preorders where
   
   open Sandbox-Relations using (Unrelated; Related; related)
   
-  Unrelated-preorder : IsPreorder (Unrelated {A = A})
+  -- Unrelated-preorder : IsPreorder (Unrelated {A = A})
   -- IsPreorder.refl Unrelated-preorder = {!!}
-  Unrelated-preorder = record { refl = {!!} ; trans = {!!} }
+  -- Unrelated-preorder = record { refl = {!!} ; trans = {!!} }
   
   Related-preorder : IsPreorder (Related {A = A})
   Related-preorder = record { refl = related ; trans = λ _ _ → related }
