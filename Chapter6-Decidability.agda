@@ -48,3 +48,26 @@ module Definition-Bottom where
   infix 3 ¬_
 
 -- 6.3 Inequality
+
+  _≢_ : {A : Type} → A → A → Type
+  x ≢ y = ¬ x ≡ y
+  infix 4 _≢_
+
+  ≢-sym : {A : Type} → {x y : A} → x ≢ y → y ≢ x
+  ≢-sym x≢y y≡x = x≢y (sym y≡x)
+
+  -- Helpful for proving that inequality is not reflexive.
+  Reflexive
+    : {c ℓ : Level} {A : Type c}
+    → (A → A → Type ℓ)
+    → Type (ℓ ⊔ c)
+  Reflexive {A = A} _≈_ = {x : A} → x ≈ x
+
+  -- Example showing equality is reflexive.
+  ≡-refl : {A : Type} → Reflexive {A = A} _≡_
+  ≡-refl = refl
+
+  ¬≢-refl : ¬ ({A : Type} → Reflexive {A = A} _≢_)
+  ¬≢-refl ¬≡-refl = ¬≡-refl {ℕ} {0} refl
+
+-- 6.4 Negation Considered as a Callback
